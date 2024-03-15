@@ -1,0 +1,43 @@
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import LaserScan
+
+class LidarSubscriber(Node):
+	def __init__(self):
+		super().__init__('lidar_subscriber')
+		self.subscription = self.create_subscription(
+		LaserScan,
+		'/rplidar_ros/scan',
+		self.lidar_callback,
+		10)
+
+	#This is where we should process the Lidar readings
+	def lidar_callback(self, msg):
+		forward_distance = self.get_forward_distance(msg)
+		
+
+    	def get_forward_distance(self, scan: LaserScan) -> float:
+        	num_measurements = len(scan.ranges)
+        	# Assuming the forward direction is at the exact middle of the measurements
+        	center_index = num_measurements // 2
+        	forward_distance = scan.ranges[center_index]
+        	# Filtering out invalid measurements
+        	if forward_distance == float('inf') or forward_distance == 0.0:
+            		return -1.0  # Indicate an invalid or no measurement
+        	return forward_distance
+
+def main(args = None):
+    rclpy.init(args=args)
+    node = LidarSubscriber()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        # Destroy the node explicitly
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
