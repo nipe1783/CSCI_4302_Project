@@ -55,7 +55,7 @@ class DriveLap(Node):
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
-		input.angle = 1.0
+		input.angle = 6.0
 		input.throttle = 0.6
 		self.cmd_vel_publisher.publish(input)
 
