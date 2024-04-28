@@ -28,10 +28,12 @@ class DriveLap(Node):
 		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
-		if(forward_distance_ > 1 and right_distance_ > .7):
+		if(forward_distance_ > 1 and right_distance_ > 1):
 			self.go_right()
-		elif(forward_distance_ > 1 and right_distance_ > 0.5 and right_distance_ <= .7):
+		elif(forward_distance_ > 1 and right_distance_ > 0.5 and right_distance_ <= 1):
 			self.go_straight()
+		elif(forward_distance_ < 1 and right_distance_ <= 0.5 and left_distance_ > 1):
+			self.go_left()
 		else:
 			self.stop()
 
@@ -43,7 +45,13 @@ class DriveLap(Node):
 
 	def go_right(self):
 		input = ServoCtrlMsg()
-		input.angle = -0.5
+		input.angle = -0.7
+		input.throttle = 0.7
+		self.cmd_vel_publisher.publish(input)
+	
+	def go_left(self):
+		input = ServoCtrlMsg()
+		input.angle = 0.7
 		input.throttle = 0.7
 		self.cmd_vel_publisher.publish(input)
 
