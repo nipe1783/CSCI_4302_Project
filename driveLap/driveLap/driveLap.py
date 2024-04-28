@@ -26,9 +26,9 @@ class DriveLap(Node):
 		right_distance_ = msg.ranges[398]
 		left_distance_ = msg.ranges[132]
 
-		if(forward_distance_ > 5 and right_distance_ > 5):
+		if(forward_distance_ > 1 and right_distance_ > .7):
 			self.go_right()
-		elif(forward_distance_ > 5 and right_distance_ > 0.5 and right_distance_ < 1):
+		elif(forward_distance_ > 1 and right_distance_ > 0.5 and right_distance_ <= .7):
 			self.go_straight()
 		else:
 			self.stop()
