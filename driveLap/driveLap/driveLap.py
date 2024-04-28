@@ -24,8 +24,12 @@ class DriveLap(Node):
 		forward_distance_ = msg.ranges[0]
 		right_distance_ = msg.ranges[398]
 		left_distance_ = msg.ranges[132]
+		self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
+		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
+		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
 		if(forward_distance_ > 1 and right_distance_ > .7):
+			
 			self.go_right()
 		elif(forward_distance_ > 1 and right_distance_ > 0.5 and right_distance_ <= .7):
 			self.go_straight()
@@ -35,7 +39,7 @@ class DriveLap(Node):
 	def go_straight(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
-		input.throttle = 0.8
+		input.throttle = 0.4
 		self.cmd_vel_publisher.publish(input)
 
 	def go_right(self):
