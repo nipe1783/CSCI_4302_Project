@@ -32,19 +32,19 @@ class DriveLap(Node):
 		else:
 			self.stop()
 
-	def go_straight(self, msg):
+	def go_straight(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
 		input.throttle = 0.8
 		self.cmd_vel_publisher.publish(input)
 
-	def go_right(self, msg):
+	def go_right(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.5
 		input.throttle = 0.4
 		self.cmd_vel_publisher.publish(input)
 
-	def stop(self, msg):
+	def stop(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
 		input.throttle = 0.0
