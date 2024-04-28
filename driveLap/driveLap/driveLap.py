@@ -5,7 +5,7 @@ from deepracer_interfaces_pkg.msg import ServoCtrlMsg
 
 class DriveLap(Node):
 	def __init__(self):
-		super().__init__('drive lap')
+		super().__init__('driveLap')
 		self.subscription = self.create_subscription(
 			LaserScan,
 			'/rplidar_ros/scan',
