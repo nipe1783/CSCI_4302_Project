@@ -23,16 +23,21 @@ class DriveLap(Node):
 
 		forward_distance_ = msg.ranges[0]
 		right_distance_ = msg.ranges[398]
+		top_right_distance_ = msg.ranges[486]
+		top_left_distance = msg.ranges[44]
 		left_distance_ = msg.ranges[132]
-		self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
-		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
-		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
+		# self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
+		# self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
+		# self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
-		if(forward_distance_ > 1 and right_distance_ > 1):
+		if(forward_distance_ > 2 and right_distance_ > 2):
+			print("Right")
 			self.go_right()
-		elif(forward_distance_ > 1 and right_distance_ > 0.5 and right_distance_ <= 1):
+		elif(forward_distance_ > 2 and right_distance_ > 1 and right_distance_ <= 2):
+			print("Straight")
 			self.go_straight()
-		elif(forward_distance_ < 1 and right_distance_ <= 0.5 and left_distance_ > 1):
+		elif(forward_distance_ < 2 and right_distance_ <= 1 and left_distance_ > 2):
+			print("Left")
 			self.go_left()
 		else:
 			self.stop()
