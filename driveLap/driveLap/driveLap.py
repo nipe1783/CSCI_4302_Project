@@ -49,3 +49,18 @@ class DriveLap(Node):
 		input.angle = 0.0
 		input.throttle = 0.0
 		self.cmd_vel_publisher.publish(input)
+
+def main(args = None):
+    rclpy.init(args=args)
+    node = DriveLap()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        # Destroy the node explicitly
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
