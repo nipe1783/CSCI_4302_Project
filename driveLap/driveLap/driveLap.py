@@ -2,10 +2,9 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from deepracer_interfaces_pkg.msg import ServoCtrlMsg
-from collections import deque
 
 class DriveLap(Node):
-	def__init__(self):
+	def __init__(self):
 		super().__init__('drive lap')
 		self.subscription = self.create_subscription(
 			LaserScan,
