@@ -29,7 +29,6 @@ class DriveLap(Node):
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
 		if(forward_distance_ > 1 and right_distance_ > .7):
-			
 			self.go_right()
 		elif(forward_distance_ > 1 and right_distance_ > 0.5 and right_distance_ <= .7):
 			self.go_straight()
@@ -39,13 +38,13 @@ class DriveLap(Node):
 	def go_straight(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
-		input.throttle = 0.4
+		input.throttle = 0.7
 		self.cmd_vel_publisher.publish(input)
 
 	def go_right(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.5
-		input.throttle = 0.4
+		input.throttle = 0.7
 		self.cmd_vel_publisher.publish(input)
 
 	def stop(self):
@@ -63,6 +62,7 @@ def main(args = None):
         pass
     finally:
         # Destroy the node explicitly
+		node.stop()
         node.destroy_node()
         rclpy.shutdown()
 
