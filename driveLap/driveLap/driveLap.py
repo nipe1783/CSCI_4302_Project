@@ -28,7 +28,7 @@ class DriveLap(Node):
 		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
-		if (forward_distance < 1.0 and right distance < 1.0):
+		if (forward_distance < 1.0 and right_distance < 1.0):
 			print("Left")
 			self.go_left()
 		elif (forward_distance > 1.0 and (right_distance > 0.75 and right_distance < 1.0)):
