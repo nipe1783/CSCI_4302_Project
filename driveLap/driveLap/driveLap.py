@@ -37,7 +37,7 @@ class DriveLap(Node):
 		elif (forward_distance_ > 1.5 and (right_distance_ > 0.35 and right_distance_ < 1.0)):
 			print("Straight")
 			self.go_straight()
-		elif (forward_distance_ > 1.5 and right_distance_ > 1.0):
+		elif (forward_distance_ < 1.0 and right_distance_ > 1.0):
 			print("Right")
 			self.go_right()
 
