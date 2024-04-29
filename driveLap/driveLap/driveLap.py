@@ -2,11 +2,10 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from deepracer_interfaces_pkg.msg import ServoCtrlMsg
-from collections import deque
 
 class DriveLap(Node):
-	def__init__(self):
-		super().__init__('drive lap')
+	def __init__(self):
+		super().__init__('driveLap')
 		self.subscription = self.create_subscription(
 			LaserScan,
 			'/rplidar_ros/scan',
@@ -16,55 +15,67 @@ class DriveLap(Node):
 			ServoCtrlMsg,
 			'/webserver_pkg/manual_drive',
 			10)
-		self.driving_forward = True
-		self.lidar_buffer = deque(maxlen=50) #Buffer to store the last 50 LIDAR readings
+		self.forward_distance_ = 0.0
+		self.right_distance_ = 0.0
+		self.left_distance_ = 0.0
 
 	def lidar_callback(self, msg):
-		#Update lidar buffer with current readings
-		self.lidar_buffer.append(msg.ranges)
 
-		#Analyze lidar buffer to detect corners and intersections
-		recent_readings = list(self.lidar_buffer)[-10:]
-		if (not self.detect_intersection(recent_readings) and not self.detect_corner(recent_readings)):
-			self.drive_forward(msg)
-		elif self.detect_intersection(recent_readings):
-			self.go_straight(msg)
-		elif self.detect_corner(recent_readings):
-			self.turn(msg)
+		forward_distance_ = msg.ranges[0]
+		right_distance_ = msg.ranges[398]
+		left_distance_ = msg.ranges[132]
+		self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
+		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
+		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
-	def get_forward_distance(self, scan: LaserScan):
-		forward_distance = scan.ranges[0]
-		if forward_distance == float('inf') or forward_distance == 0.0:
-			return -1.0
-		return forward_distance 
-
-	def detect_intersection(self, readings):
-		#Detect if it is an intersection based on the pattern of readings
-		#Implement logic
-		pass
-
-	def detect_corner(self, readings):
-		#Detect if it is a corner based on the pattern of readings
-		#Implement logic
-		pass
-
-	def go_straight(self, msg):
-		input = ServoCtrlMsg()
-		input.angle = 0.0
-		input.throttle = 0.8
-		self.cmd_vel_publisher.publish(input)
-
-	def turn(self, msg):
-		#Implemetn turn algorithm
-		pass
-
-	def drive_forward(self, msg):
-		forward_distance = self.get_forward_distance(msg)
-		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
-		input = ServoCtrlMsg()
-		input.angle = 0.0
-		if forward_distance > 1.0:
-			input.throttle = 0.8
+		if(forward_distance_ > 1.5 and left_distance_ > 1.5 and right_distance_ < 1.0 and right_distance_ > 0.75):
+			print("Straight")
+			self.go_straight()
+		elif(forward_distance_ > 1.5 and right_distance_ >= 1.0):
+			print("Right")
+			self.go_right()
+		elif(right_distance_ <= 1.0):
+			print("Left")
+			self.go_left()
 		else:
-			input.throttle = 0.0
+			print("Stop")
+			self.stop()
+
+	def go_straight(self):
+		input = ServoCtrlMsg()
+		input.angle = 0.0
+		input.throttle = 0.6
 		self.cmd_vel_publisher.publish(input)
+
+	def go_right(self):
+		input = ServoCtrlMsg()
+		input.angle = -1.0
+		input.throttle = 0.6
+		self.cmd_vel_publisher.publish(input)
+	
+	def go_left(self):
+		input = ServoCtrlMsg()
+		input.angle = 1.0
+		input.throttle = 0.6
+		self.cmd_vel_publisher.publish(input)
+
+	def stop(self):
+		input = ServoCtrlMsg()
+		input.angle = 0.0
+		input.throttle = 0.0
+		self.cmd_vel_publisher.publish(input)
+
+def main(args = None):
+    rclpy.init(args=args)
+    node = DriveLap()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        # Destroy the node explicitly
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
