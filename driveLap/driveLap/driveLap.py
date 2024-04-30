@@ -42,7 +42,7 @@ class DriveLap(Node):
 			self.cur_dir = "stop"
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif (forward_distance_ < 1.0 and right_distance_ < 1.5) or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 0.7):
+		elif (forward_distance_ < 1.3 and right_distance_ < 1.5) or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 0.7):
 			print("Left")
 			self.cur_dir = "left"
 			self.go_left()
