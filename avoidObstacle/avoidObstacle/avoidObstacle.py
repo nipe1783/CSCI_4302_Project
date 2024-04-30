@@ -15,7 +15,7 @@ class DriveLap(Node):
 			10)
 		self.cmd_vel_publisher = self.create_publisher(
 			ServoCtrlMsg,
-			'/webserver_pkg/manual_drive',
+			'/ctrl_pkg/servo_msg',
 			10)
 		self.psi = 0
 		self.th = 0
@@ -78,6 +78,8 @@ class DriveLap(Node):
 			self.psi = self.psi_max
 		elif self.psi < self.psi_min:
 			self.psi = self.psi_min
+
+		self.act()
 	def act(self):
 		input = ServoCtrlMsg()
 		input.angle = self.psi
