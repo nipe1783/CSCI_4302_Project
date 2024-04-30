@@ -61,6 +61,7 @@ class DriveLap(Node):
 		th_d = 0
 		psi_d = (ds-self.ds_prev)/dt
 		#I
+		th_i = 0
 		psi_i = self.psi_acc+ds*dt
 		
 		# update prev vals
