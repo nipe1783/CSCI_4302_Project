@@ -13,7 +13,7 @@ class DriveLap(Node):
 			10)
 		self.cmd_vel_publisher = self.create_publisher(
 			ServoCtrlMsg,
-			'/webserver_pkg/manual_drive',
+			'/ctrl_pkg/servo_msg',
 			10)
 		self.forward_distance_ = 0.0
 		self.right_distance_ = 0.0
