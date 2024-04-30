@@ -103,8 +103,8 @@ class DriveLap(Node):
 
 	def act(self):
 		input = ServoCtrlMsg()
-		input.angle = self.psi
-		input.throttle = self.th
+		input.angle = float(self.psi)
+		input.throttle = float(self.th)
 		self.cmd_vel_publisher.publish(input)
 
 def main(args = None):
