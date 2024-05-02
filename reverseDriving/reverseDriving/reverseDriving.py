@@ -71,13 +71,13 @@ class ReverseDrive(Node):
 		input.throttle = 0.5
 		self.cmd_vel_publisher.publish(input)
 
-	def go_right(self,right_distance):
+	def go_right(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.7
 		input.throttle = -0.6
 		self.cmd_vel_publisher.publish(input)
 	
-	def go_left(self,left_distance):
+	def go_left(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.7
 		input.throttle = -0.6
