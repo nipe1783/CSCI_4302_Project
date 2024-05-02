@@ -40,29 +40,29 @@ class DriveLap(Node):
 		left_distance_ = msg.ranges[122]
 		#if left_distance_ == 0 or left_distance_ == float('inf'):
 			#left_distance_ = -1.0
-		self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
-		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
-		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
+		#self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
+		#self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
+		#self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
 		if forward_distance_ < 0.2:
-			print("Stop")
+			#print("Stop")
 			self.cur_dir = "stop"
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
 		elif (forward_distance_ < 1.3 and right_distance_ < 1.5) or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 1.0):
-			print("Left")
+			#print("Left")
 			self.cur_dir = "left"
 			self.go_left()
 		elif (right_distance_ < 0.4 and forward_distance_ > 2.0):
-			print("Stabilize")
+			#print("Stabilize")
 			self.cur_dir = "stabilize"
 			self.stabilize()
 		elif (right_distance_ > 0.35 and right_distance_ < 1.0):
-			print("Straight")
+			#print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
 		elif (right_distance_ > 1.5):
-			print("Right")
+			#print("Right")
 			self.cur_dir = "right"
 			self.go_right()
 
