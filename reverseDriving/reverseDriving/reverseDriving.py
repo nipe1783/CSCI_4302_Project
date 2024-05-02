@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from deepracer_interfaces_pkg.msg import ServoCtrlMsg
+import math
 
 class ReverseDrive(Node):
 	def __init__(self):
@@ -57,12 +58,12 @@ class ReverseDrive(Node):
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.go_straight(right_distance_-1)
+			self.go_straight(math.sqrt(right_distance_-1))
 
 	def go_straight(self,error):
 		input = ServoCtrlMsg()
 		# factor = (error) * .5
-		input.angle = error * .8
+		input.angle = error
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
