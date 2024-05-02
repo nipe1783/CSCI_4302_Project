@@ -61,13 +61,13 @@ class ReverseDrive(Node):
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.hug_wall(max(float(1.5-right_distance_),-1))
+			self.hug_wall(float(1.5-right_distance_))
 
 	def hug_wall(self,error):
 		input = ServoCtrlMsg()
 		input.angle = error * self.max_angle
 		input.throttle = -self.max_throttle
-		print("hug_wall ",input.angle," ",input.throttle)
+		print("hug_wall ",error," ",input.angle," ",input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
 	def reverse(self):
@@ -80,14 +80,14 @@ class ReverseDrive(Node):
 	def go_right(self):
 		input = ServoCtrlMsg()
 		input.angle = -self.max_angle
-		input.throttle = -self.max_throttle * .9
+		input.throttle = -self.max_throttle * .85
 		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
 		input.angle = self.max_angle
-		input.throttle = -self.max_throttle * .9
+		input.throttle = -self.max_throttle * .85
 		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
