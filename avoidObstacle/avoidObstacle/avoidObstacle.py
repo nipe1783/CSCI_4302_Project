@@ -71,7 +71,7 @@ class DriveLap(Node):
 
 		#P
 		if df < self.df_cut:
-			th_p = 0.0
+			self.stop()
 		else:
 			th_p = 0.55 #df
 
