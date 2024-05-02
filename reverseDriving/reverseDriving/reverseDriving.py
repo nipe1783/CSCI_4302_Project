@@ -13,50 +13,74 @@ class ReverseDrive(Node):
 			10)
 		self.cmd_vel_publisher = self.create_publisher(
 			ServoCtrlMsg,
-			'/webserver_pkg/manual_drive',
+			'/ctrl_pkg/servo_msg',
 			10)
 		self.forward_distance_ = 0.0
 		self.right_distance_ = 0.0
 		self.left_distance_ = 0.0
+		self.cur_dir = "none"
 
 	def lidar_callback(self, msg):
 
-		forward_distance_ = msg.ranges[264]
-		right_distance_ = msg.ranges[132]
-		left_distance_ = msg.ranges[398]
-		self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
+		# front_right = msg.ranges[235:265:5]
+		# front_left = msg.ranges[265:295:5]
+		# min = float('inf')
+  
+		obstacle = False
+		for i in range(200,330,5):
+			dist = msg.ranges[i]
+			if dist > .2 and dist < 1.3:
+				obstacle = True
+
+		forward_distance_ = msg.ranges[265]
+
+		right_distance_ = msg.range[140]
+		left_distance_ = msg.ranges[390]
+
+		self.get_logger().info(f'Forward left: {forward_distance_:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
-		if(forward_distance_ > 1.5 and left_distance_ > 1.5 and right_distance_ < 1.5 and right_distance_ > 0.75):
-			print("Straight")
-			self.go_straight()
-		elif(forward_distance_ > 1.5 and right_distance_ >= 1.5):
-			print("Right")
-			self.go_right()
-		elif(forward_distance_ <= 1.5 and right_distance_ <= .75):
-			print("Left")
-			self.go_left()
-		else:
+		if forward_distance_ < 0.2:
 			print("Stop")
+			self.cur_dir = "stop"
 			self.stop()
+		elif (obstacle):
+			print("Obstacle")
+			self.cur_dir = "avoiding"
+			self.go_left()
+		elif (right_distance_ > 1.5):
+			print("Right")
+			self.cur_dir = "right"
+			self.go_right(right_distance_)
+		elif (right_distance_ > .3 and right_distance_ < 1.5):
+			print("Hugging Wall")
+			self.cur_dir = "hug_wall"
+			self.go_straight(right_distance_-1)
 
-	def go_straight(self):
+	def go_straight(self,error):
+		input = ServoCtrlMsg()
+		# factor = (error) * .5
+		input.angle = error
+		input.throttle = -0.7
+		self.cmd_vel_publisher.publish(input)
+
+	def reverse(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
-		input.throttle = -0.7
+		input.throttle = 0.5
 		self.cmd_vel_publisher.publish(input)
 
-	def go_right(self):
+	def go_right(self,right_distance):
 		input = ServoCtrlMsg()
 		input.angle = 0.7
-		input.throttle = -0.7
+		input.throttle = -0.6
 		self.cmd_vel_publisher.publish(input)
 	
-	def go_left(self):
+	def go_left(self,left_distance):
 		input = ServoCtrlMsg()
 		input.angle = -0.7
-		input.throttle = -0.7
+		input.throttle = -0.6
 		self.cmd_vel_publisher.publish(input)
 
 	def stop(self):
