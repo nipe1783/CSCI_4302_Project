@@ -53,7 +53,7 @@ class ReverseDrive(Node):
 			print("Obstacle")
 			self.cur_dir = "avoiding"
 			self.go_right()
-		elif (self.cur_dir != "straight" and right_distance_ > 2):
+		elif (self.cur_dir != "straight" and right_distance_ > 2.5):
 			print("Right")
 			self.cur_dir = "right"
 			for x in range(10):
@@ -62,7 +62,7 @@ class ReverseDrive(Node):
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.hug_wall((1-right_distance_))
+			self.hug_wall(max(float(1.5-right_distance_),1))
 
 	def hug_wall(self,error):
 		input = ServoCtrlMsg()
