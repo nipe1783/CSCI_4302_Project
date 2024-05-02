@@ -44,7 +44,7 @@ class ReverseDrive(Node):
 		self.get_logger().info(f'Min Forward Cone: {dist:.2f} meters')
 		# self.get_logger().info(f'Velocity: {dist:.2f} meters')
 
-		if forward_distance_ < 0.2:
+		if forward_distance_ < 0.3:
 			print("Stop")
 			self.cur_dir = "stop"
 			self.stop()
@@ -59,12 +59,11 @@ class ReverseDrive(Node):
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.go_straight((1-right_distance_))
+			self.hug_wall((1-right_distance_))
 
-	def go_straight(self,error):
+	def hug_wall(self,error):
 		input = ServoCtrlMsg()
-		# factor = (error) * .5
-		input.angle = error**2
+		input.angle = error**3
 		input.throttle = self.max_throttle
 		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
@@ -86,8 +85,14 @@ class ReverseDrive(Node):
 	def go_left(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.6
-		input.throttle = self.max_throttle * 6
+		input.throttle = self.max_throttle * .5
 		print(input.throttle)
+		self.cmd_vel_publisher.publish(input)
+
+	def go_straight(self):
+		input = ServoCtrlMsg()
+		input.angle = 0.0
+		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def stop(self):
