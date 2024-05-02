@@ -50,7 +50,7 @@ class DriveLap(Node):
 			print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
-		elif (right_distance > 1.5) or (left_45 < 0.8):
+		elif (right_distance > 1.3) or (left_45 < 0.8):
 			print("Right")
 			self.cur_dir = "right"
 			for x in range(10):
