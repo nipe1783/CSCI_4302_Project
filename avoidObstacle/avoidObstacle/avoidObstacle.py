@@ -41,7 +41,7 @@ class DriveLap(Node):
 		df = msg.ranges[0]
 		#original true right should be 398
 		dr = float('inf')
-		for i in range(398-30, 398+30):
+		for i in range(398-50, 398+50):
 			if msg.ranges[i] == float('inf'):
 				break
 			if msg.ranges[i] < dr:
@@ -62,7 +62,7 @@ class DriveLap(Node):
 			dl = 0
 
 		#ds = dl-dr
-		ds = 0.75-dr
+		ds = 1.5-dr
 		self.get_logger().info(f'Forward distance: {df:.2f} meters')
 		self.get_logger().info(f'Right distance: {dr:.2f} meters')
 		self.get_logger().info(f'Left distance: {dl:.2f} meters')
@@ -72,7 +72,7 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 2
+		k_psi_p = 1.6
 		k_psi_d = 0.0
 		k_psi_i = 0.0
 
@@ -82,7 +82,7 @@ class DriveLap(Node):
 			psi_p = 0.0
 			self.stop()
 		else:
-			th_p = 0.57 #df
+			th_p = 0.67 #df
 
 		'''if dl < self.ds_min or dr < self.ds_min:
 			th_p = 0.0
