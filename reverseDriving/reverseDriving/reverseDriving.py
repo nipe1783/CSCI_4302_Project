@@ -62,7 +62,7 @@ class ReverseDrive(Node):
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.hug_wall(max(float(1.5-right_distance_),1))
+			self.hug_wall(max(float(1.5-right_distance_),-1))
 
 	def hug_wall(self,error):
 		input = ServoCtrlMsg()
