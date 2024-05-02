@@ -62,7 +62,7 @@ class DriveLap(Node):
 			dl = 0
 
 		#ds = dl-dr
-		ds = 0.5-dr
+		ds = 0.75-dr
 		self.get_logger().info(f'Forward distance: {df:.2f} meters')
 		self.get_logger().info(f'Right distance: {dr:.2f} meters')
 		self.get_logger().info(f'Left distance: {dl:.2f} meters')
