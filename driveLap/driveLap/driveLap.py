@@ -22,6 +22,13 @@ class DriveLap(Node):
 
 	def lidar_callback(self, msg):
 
+		first_30 = msg.ranges[:30]
+        	self.get_logger().info(f'First 30 LiDAR readings: {first_30}')
+
+        	# Print the last 30 readings
+        	last_30 = msg.ranges[-30:]
+        	self.get_logger().info(f'Last 30 LiDAR readings: {last_30}')
+		
 		forward_distance_ = msg.ranges[0]
 		#if forward_distance_ == 0 or forward_distance_ == float('inf'):
 			#forward_distance_ = -1.0
