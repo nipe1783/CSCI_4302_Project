@@ -27,17 +27,17 @@ class ReverseDrive(Node):
 		# min = float('inf')
   
 		obstacle = False
-		for i in range(200,330,5):
-			dist = msg.ranges[i]
-			if dist > .2 and dist < 1.3:
-				obstacle = True
+		# for i in range(200,330,5):
+		# 	dist = msg.ranges[i]
+		# 	if dist < 1:
+		# 		obstacle = False
 
 		forward_distance_ = msg.ranges[265]
 
 		right_distance_ = msg.ranges[140]
 		left_distance_ = msg.ranges[390]
 
-		self.get_logger().info(f'Forward left: {forward_distance_:.2f} meters')
+		self.get_logger().info(f'Forward: {forward_distance_:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 
