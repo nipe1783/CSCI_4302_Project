@@ -38,11 +38,11 @@ class ReverseDrive(Node):
 		if dist < 1 and right_distance_>.35:
 			obstacle = True
 
-		self.get_logger().info(f'Forward: {forward_distance_:.2f} meters')
+		self.get_logger().info(f'Forward: {dist:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 		self.get_logger().info(f'Min Forward Cone: {dist:.2f} meters')
-		self.get_logger().info(f'Velocity: {dist:.2f} meters')
+		# self.get_logger().info(f'Velocity: {dist:.2f} meters')
 
 		if forward_distance_ < 0.2:
 			print("Stop")
@@ -59,7 +59,7 @@ class ReverseDrive(Node):
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.go_straight((right_distance_-1))
+			self.go_straight((1-right_distance_))
 
 	def go_straight(self,error):
 		input = ServoCtrlMsg()
