@@ -92,11 +92,13 @@ class DriveLap(Node):
 		self.ds_prev = ds
 		self.t_prev = t
 		self.psi_acc = psi_i
+		
 		#apply gain and sum
 		self.th = th_p*k_th_p + th_d*k_th_p + th_i*k_th_i
 		self.psi = psi_p*k_psi_p + psi_d*k_psi_p + psi_i*k_psi_i
 
-
+		message0 = f"Raw Actions: Throttle= {self.th} Steering Angle= {self.psi}"
+		
 		#cuttoff
 		if self.th > self.th_max:
 			self.th = self.th_max
@@ -107,6 +109,14 @@ class DriveLap(Node):
 			self.psi = self.psi_min
 
 		self.act()
+		
+		message1 = f"Actual Actions: Throttle= {self.th} Steering Angle= {self.psi}"
+		message2 = f"LIDAR: left= {dl} right= {dr} front= {df}"
+		
+		# Print the message
+		print(message0)
+		print(message1)
+		print(message2)
 
 	def act(self):
 		input = ServoCtrlMsg()
