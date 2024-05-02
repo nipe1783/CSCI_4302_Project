@@ -32,6 +32,7 @@ class DriveLap(Node):
 		self.t_prev = time.time()
 		self.ds_prev = 0.0
 		self.psi_acc = 0.0
+		self.dr_lp = 0
 
 
 
@@ -45,6 +46,8 @@ class DriveLap(Node):
 				break
 			if msg.ranges[i] < dr:
 				dr = msg.ranges[i]
+		self.dr_lp = self.dr_lp*0.95+dr*0.05
+		dr = self.dr_lp
 		#dr = msg.ranges[398]
 		#original left should be 132
 		dl = msg.ranges[132]
