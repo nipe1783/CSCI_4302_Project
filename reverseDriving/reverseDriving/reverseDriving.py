@@ -67,7 +67,7 @@ class ReverseDrive(Node):
 		input = ServoCtrlMsg()
 		input.angle = error**3
 		input.throttle = self.max_throttle
-		print(input.throttle)
+		print("hug_wall ",input.angle," ",input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
 	def reverse(self):
