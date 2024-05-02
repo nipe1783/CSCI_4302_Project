@@ -39,11 +39,11 @@ class DriveLap(Node):
 
 		df = msg.ranges[0]
 		#original true right should be 398
-		dr = 0
-		for i in range(391, 411):
-			dr = dr + msg.ranges[i]
-		dr = dr/20
-		dr = msg.ranges[398]
+		dr = 1
+		for i in range(398-30, 398+30):
+			if msg.ranges[i] < dr:
+				dr = msg.ranges[i]
+		#dr = msg.ranges[398]
 		#original left should be 132
 		dl = msg.ranges[132]
 
@@ -66,7 +66,7 @@ class DriveLap(Node):
 		k_th_i = 0.0
 
 		k_psi_p = 0.5
-		k_psi_d = 0.1
+		k_psi_d = 0.0
 		k_psi_i = 0.0
 
 		#P
