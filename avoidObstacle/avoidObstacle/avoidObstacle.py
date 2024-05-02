@@ -77,6 +77,7 @@ class DriveLap(Node):
 		else:
 			psi_p = ds
 		'''
+		psi_p = ds
 
 		#D
 		t = time.time()
