@@ -43,11 +43,11 @@ class DriveLap(Node):
 		#original left should be 132
 		dl = msg.ranges[132]
 
-		if df == float('inf')
+		if df == float('inf'):
 			df = 0
-		if dr == float('inf')
+		if dr == float('inf'):
 			dr = 0
-		if dl == float('inf')
+		if dl == float('inf'):
 			dl = 0
 
 		ds = dl-dr
