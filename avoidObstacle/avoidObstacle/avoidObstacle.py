@@ -41,6 +41,8 @@ class DriveLap(Node):
 		#original true right should be 398
 		dr = float('inf')
 		for i in range(398-30, 398+30):
+			if msg.ranges[i] == float('inf'):
+				break
 			if msg.ranges[i] < dr:
 				dr = msg.ranges[i]
 		#dr = msg.ranges[398]
