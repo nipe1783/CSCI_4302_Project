@@ -52,7 +52,7 @@ class ReverseDrive(Node):
 		elif (right_distance_ > 1.5):
 			print("Right")
 			self.cur_dir = "right"
-			self.go_right(right_distance_)
+			self.go_right()
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
