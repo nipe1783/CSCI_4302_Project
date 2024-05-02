@@ -42,6 +42,7 @@ class ReverseDrive(Node):
 		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 		self.get_logger().info(f'Min Forward Cone: {dist:.2f} meters')
+		self.get_logger().info(f'Velocity: {dist:.2f} meters')
 
 		if forward_distance_ < 0.2:
 			print("Stop")
@@ -65,18 +66,21 @@ class ReverseDrive(Node):
 		# factor = (error) * .5
 		input.angle = error
 		input.throttle = self.max_throttle
+		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
 	def reverse(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
 		input.throttle = 0.5
+		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
 	def go_right(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.6
-		input.throttle = -self.max_throttle * .6
+		input.throttle = self.max_throttle * .6
+		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
@@ -89,6 +93,7 @@ class ReverseDrive(Node):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
 		input.throttle = 0.0
+		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
 def main(args = None):
