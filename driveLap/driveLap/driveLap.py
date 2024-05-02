@@ -62,7 +62,7 @@ class DriveLap(Node):
 
 	def go_straight(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.01
+		input.angle = 0.05
 		input.throttle = -0.6
 		self.cmd_vel_publisher.publish(input)
 
