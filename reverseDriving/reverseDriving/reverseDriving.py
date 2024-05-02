@@ -52,7 +52,7 @@ class ReverseDrive(Node):
 		elif (obstacle):
 			print("Obstacle")
 			self.cur_dir = "avoiding"
-			self.go_right()
+			self.go_left()
 		elif (self.cur_dir != "right" and right_distance_ > 2.5):
 			print("Right")
 			for x in range(10):
