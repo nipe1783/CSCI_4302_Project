@@ -34,8 +34,8 @@ class ReverseDrive(Node):
 		left_distance_ = min(msg.ranges[380:420:5])
 
 		obstacle = False
-		dist = min(msg.ranges[230:305:5])
-		if dist < 1 and right_distance_>.35:
+		dist = min(msg.ranges[240:295:5])
+		if dist < 1:
 			obstacle = True
 
 		self.get_logger().info(f'Forward: {dist:.2f} meters')
