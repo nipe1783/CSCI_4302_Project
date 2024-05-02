@@ -19,6 +19,7 @@ class ReverseDrive(Node):
 		self.right_distance_ = 0.0
 		self.left_distance_ = 0.0
 		self.cur_dir = "none"
+		self.max_throttle = .6
 
 	def lidar_callback(self, msg):
 
@@ -62,7 +63,7 @@ class ReverseDrive(Node):
 		input = ServoCtrlMsg()
 		# factor = (error) * .5
 		input.angle = error
-		input.throttle = -0.7
+		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def reverse(self):
@@ -74,13 +75,13 @@ class ReverseDrive(Node):
 	def go_right(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.7
-		input.throttle = -0.6
+		input.throttle = -self.max_throttle * .75
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.7
-		input.throttle = -0.6
+		input.throttle = self.max_throttle * .75
 		self.cmd_vel_publisher.publish(input)
 
 	def stop(self):
