@@ -39,6 +39,10 @@ class DriveLap(Node):
 
 		df = msg.ranges[0]
 		#original true right should be 398
+		dr = 0
+		for i in range(391, 411):
+			dr = dr + msg.ranges[i]
+		dr = dr/20
 		dr = msg.ranges[398]
 		#original left should be 132
 		dl = msg.ranges[132]
