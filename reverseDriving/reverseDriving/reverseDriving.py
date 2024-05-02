@@ -34,7 +34,7 @@ class ReverseDrive(Node):
 
 		forward_distance_ = msg.ranges[265]
 
-		right_distance_ = msg.range[140]
+		right_distance_ = msg.ranges[140]
 		left_distance_ = msg.ranges[390]
 
 		self.get_logger().info(f'Forward left: {forward_distance_:.2f} meters')
