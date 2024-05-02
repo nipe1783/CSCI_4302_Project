@@ -63,7 +63,7 @@ class DriveLap(Node):
 
 		k_psi_p = 0.5
 		k_psi_d = 0.1
-		k_psi_i = 0.05
+		k_psi_i = 0.0
 
 		#P
 		if df < self.df_cut:
@@ -71,11 +71,12 @@ class DriveLap(Node):
 		else:
 			th_p = 0.6 #df
 
-		if dl < self.ds_min or dr < self.ds_min:
+		'''if dl < self.ds_min or dr < self.ds_min:
 			th_p = 0.0
 			psi_p = 0.0
 		else:
 			psi_p = ds
+		'''
 
 		#D
 		t = time.time()
