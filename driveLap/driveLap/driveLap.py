@@ -30,16 +30,10 @@ class DriveLap(Node):
 		self.get_logger().info(f'Last 15 LiDAR readings: {last_30}')
 		
 		forward_distance_ = msg.ranges[0]
-		#if forward_distance_ == 0 or forward_distance_ == float('inf'):
-			#forward_distance_ = -1.0
-		#original true right should be 398
-		right_distance_ = msg.ranges[408]
-		#if right_distance_ == 0 or right_distance_ == float('inf'):
-			#right_distance_ = -1.0
-		#original left should be 132
-		left_distance_ = msg.ranges[122]
-		#if left_distance_ == 0 or left_distance_ == float('inf'):
-			#left_distance_ = -1.0
+		right_45 = msg.ranges[464]
+		right_distance_ = msg.ranges[398]
+		left_45 = msg.ranges[66]
+		left_distance_ = msg.ranges[132]
 		#self.get_logger().info(f'Forward distance: {forward_distance_:.2f} meters')
 		#self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		#self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
