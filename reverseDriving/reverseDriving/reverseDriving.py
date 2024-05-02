@@ -29,7 +29,7 @@ class ReverseDrive(Node):
 		# min = float('inf')
   
 		obstacle = False
-		dist = min(msg.ranges[200:335:5])
+		dist = min(msg.ranges[230:305:5])
 		if dist < 1:
 			obstacle = True
 
@@ -59,12 +59,12 @@ class ReverseDrive(Node):
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.go_straight((right_distance_-1)*.8)
+			self.go_straight((right_distance_-1))
 
 	def go_straight(self,error):
 		input = ServoCtrlMsg()
 		# factor = (error) * .5
-		input.angle = error
+		input.angle = error**2
 		input.throttle = self.max_throttle
 		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
@@ -86,7 +86,7 @@ class ReverseDrive(Node):
 	def go_left(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.6
-		input.throttle = self.max_throttle * .75
+		input.throttle = self.max_throttle * 6
 		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
