@@ -27,11 +27,6 @@ class ReverseDrive(Node):
 		# front_right = msg.ranges[235:265:5]
 		# front_left = msg.ranges[265:295:5]
 		# min = float('inf')
-  
-		obstacle = False
-		dist = min(msg.ranges[230:305:5])
-		if dist < 1:
-			obstacle = True
 
 		forward_distance_ = msg.ranges[265]
 
@@ -43,6 +38,11 @@ class ReverseDrive(Node):
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 		self.get_logger().info(f'Min Forward Cone: {dist:.2f} meters')
 		self.get_logger().info(f'Velocity: {dist:.2f} meters')
+
+		obstacle = False
+		dist = min(msg.ranges[230:305:5])
+		if dist < 1 and right_distance_>.35:
+			obstacle = True
 
 		if forward_distance_ < 0.2:
 			print("Stop")
