@@ -131,6 +131,12 @@ class DriveLap(Node):
 		input.throttle = float(self.th)
 		self.cmd_vel_publisher.publish(input)
 
+	def stop(self):
+		input = ServoCtrlMsg()
+		input.angle = 0.0
+		input.throttle = 0.0
+		self.cmd_vel_publisher.publish(input)
+
 def main(args = None):
     rclpy.init(args=args)
     node = DriveLap()
