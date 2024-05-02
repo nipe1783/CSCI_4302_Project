@@ -22,8 +22,8 @@ class DriveLap(Node):
 
 	def lidar_callback(self, msg):
 		#Print first 30 readings
-		first_30 = msg.ranges[:30]
-		self.get_logger().info(f'First 30 LiDAR readings: {first_30}')
+		#first_30 = msg.ranges[:30]
+		#self.get_logger().info(f'First 30 LiDAR readings: {first_30}')
 
         	# Print the last 30 readings
 		last_30 = msg.ranges[-30:]
