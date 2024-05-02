@@ -94,7 +94,6 @@ class ReverseDrive(Node):
 		input = ServoCtrlMsg()
 		input.angle = 0.0
 		input.throttle = 0.0
-		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
 def main(args = None):
@@ -103,8 +102,8 @@ def main(args = None):
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
-        pass
-    finally:
+		node.stop()
+	finally:
         # Destroy the node explicitly
         node.destroy_node()
         rclpy.shutdown()
