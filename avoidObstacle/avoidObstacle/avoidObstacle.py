@@ -50,7 +50,8 @@ class DriveLap(Node):
 		if dl == float('inf'):
 			dl = 0
 
-		ds = dl-dr
+		#ds = dl-dr
+		ds = 1-dr
 		self.get_logger().info(f'Forward distance: {df:.2f} meters')
 		self.get_logger().info(f'Right distance: {dr:.2f} meters')
 		self.get_logger().info(f'Left distance: {dl:.2f} meters')
