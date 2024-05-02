@@ -47,7 +47,7 @@ class DriveLap(Node):
 			if msg.ranges[i] < dr:
 				dr = msg.ranges[i]
 		self.dr_lp = self.dr_lp*0.95+dr*0.05
-		if self.dr_lp > 3
+		if self.dr_lp > 3:
 			self.dr_lp = 3
 		dr = self.dr_lp
 		#dr = msg.ranges[398]
