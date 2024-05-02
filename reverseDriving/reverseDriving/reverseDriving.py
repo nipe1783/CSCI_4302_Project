@@ -52,7 +52,7 @@ class ReverseDrive(Node):
 			print("Obstacle")
 			self.cur_dir = "avoiding"
 			self.go_right()
-		elif (right_distance_ > 2):
+		elif (self.cur_dir != "right" and right_distance_ > 2):
 			print("Right")
 			self.cur_dir = "right"
 			self.go_right()
@@ -77,15 +77,15 @@ class ReverseDrive(Node):
 
 	def go_right(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.6
-		input.throttle = self.max_throttle * .75
+		input.angle = -0.6
+		input.throttle = self.max_throttle * .9
 		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
-		input.angle = -0.6
-		input.throttle = self.max_throttle * .75
+		input.angle = 0.6
+		input.throttle = self.max_throttle * .9
 		print(input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
