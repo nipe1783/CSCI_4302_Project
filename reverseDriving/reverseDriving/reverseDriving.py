@@ -33,16 +33,16 @@ class ReverseDrive(Node):
 		right_distance_ = min(msg.ranges[110:155:5])
 		left_distance_ = min(msg.ranges[380:420:5])
 
+		obstacle = False
+		dist = min(msg.ranges[230:305:5])
+		if dist < 1 and right_distance_>.35:
+			obstacle = True
+
 		self.get_logger().info(f'Forward: {forward_distance_:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance_:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance_:.2f} meters')
 		self.get_logger().info(f'Min Forward Cone: {dist:.2f} meters')
 		self.get_logger().info(f'Velocity: {dist:.2f} meters')
-
-		obstacle = False
-		dist = min(msg.ranges[230:305:5])
-		if dist < 1 and right_distance_>.35:
-			obstacle = True
 
 		if forward_distance_ < 0.2:
 			print("Stop")
