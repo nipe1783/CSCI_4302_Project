@@ -41,7 +41,7 @@ class DriveLap(Node):
 		df = msg.ranges[0]
 		#original true right should be 398
 		dr = float('inf')
-		for i in range(398-50, 398+50):
+		for i in range(398-100, 398+100):
 			if msg.ranges[i] == float('inf'):
 				break
 			if msg.ranges[i] < dr:
@@ -54,12 +54,6 @@ class DriveLap(Node):
 		#original left should be 132
 		dl = msg.ranges[132]
 
-		if df == float('inf'):
-			df = 0
-		if dr == float('inf'):
-			dr = 0
-		if dl == float('inf'):
-			dl = 0
 
 		#ds = dl-dr
 		ds = 1.5-dr
@@ -72,7 +66,7 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 1.6
+		k_psi_p = 0.8
 		k_psi_d = 0.0
 		k_psi_i = 0.0
 
