@@ -47,7 +47,7 @@ class DriveLap(Node):
 				break
 
 			dr = dr + msg.ranges[i]
-			l++
+			l += 1
 		dr = dr/120
 		#if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
 			#wall_dist = wall_dist+dr-self.dr_lp
