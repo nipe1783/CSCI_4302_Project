@@ -18,6 +18,7 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
+		self.max_throttle = -0.55
 		self.cur_dir = "none"
 
 	def lidar_callback(self, msg):
@@ -63,25 +64,25 @@ class DriveLap(Node):
 	def go_straight(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.1
-		input.throttle = -0.55
+		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def go_right(self):
 		input = ServoCtrlMsg()
 		input.angle = 0.35
-		input.throttle = -0.55
+		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.35
-		input.throttle = -0.55
+		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def stabilize(self):
 		input = ServoCtrlMsg()
 		input.angle = -0.05
-		input.throttle = -0.55
+		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def stop(self):
