@@ -37,7 +37,7 @@ class DriveLap(Node):
 
 
 	def lidar_callback(self, msg):
-		wall_dist = 1
+		wall_dist = 1.5
 		df = msg.ranges[0]
 		#original true right should be 398
 		dr = float('inf')
@@ -46,9 +46,8 @@ class DriveLap(Node):
 				break
 			if msg.ranges[i] < dr:
 				dr = msg.ranges[i]
-		if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
+		#if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
 			#wall_dist = wall_dist+dr-self.dr_lp
-			break
 			
 		self.dr_lp = self.dr_lp*0.95+dr*0.05
 		if self.dr_lp > 2:
