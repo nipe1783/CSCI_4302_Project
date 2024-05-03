@@ -42,7 +42,7 @@ class DriveLap(Node):
 		#original true right should be 398
 		
 		dr = float('inf')
-		for k  in range(398-90, 398+90, 10):
+		for k  in range(398-10, 398+90, 10):
 			dr_temp = 0.01
 			l = 0.000001
 			for i in range(k-5, k+5, 10):
