@@ -69,19 +69,19 @@ class DriveLap(Node):
 
 	def stabilizeRight(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.05
+		input.angle = -0.05
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def go_right(self):
 		input = ServoCtrlMsg()
-		input.angle = -0.45
+		input.angle = -0.6
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.45
+		input.angle = 0.6
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
