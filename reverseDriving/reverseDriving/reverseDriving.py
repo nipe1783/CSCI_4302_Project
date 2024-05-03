@@ -61,7 +61,7 @@ class DriveLap(Node):
 			print("sleeping")
 			time.sleep(0.1)
 		else:
-			print("Default Straight")
+			print("Default Straight (slightly right)")
 			self.cur_dir = "straight"
 			self.stabilizeRight()
 
