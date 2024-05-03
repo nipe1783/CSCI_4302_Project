@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import LaserScan
 from deepracer_interfaces_pkg.msg import ServoCtrlMsg
+import time
 
 class DriveLap(Node):
 	def __init__(self):
@@ -41,8 +42,8 @@ class DriveLap(Node):
 		elif (forward_distance < 2.0 and right_distance < 1.5) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.5):
 			print("Left")
 			self.cur_dir = "left"
-			for x in range(10):
-				self.go_left()
+			self.go_left()
+			time.sleep(0.1)
 		elif (right_distance < 0.4 and forward_distance > 2.0):
 			print("Stabilize")
 			self.cur_dir = "stabilize"
@@ -54,8 +55,8 @@ class DriveLap(Node):
 		elif (right_distance > 1.5) or (left_45 < 0.5):
 			print("Right")
 			self.cur_dir = "right"
-			for x in range(10):
-				self.go_right()
+			self.go_right()
+			time.sleep(0.1)
 		else:
 			print("Default Straight (turn slightly right)")
 			self.cur_dir = "stabilize"
