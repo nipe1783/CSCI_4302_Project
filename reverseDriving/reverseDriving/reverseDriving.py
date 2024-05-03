@@ -20,7 +20,7 @@ class DriveLap(Node):
 		self.right_distance = 0.0
 		self.left_distance = 0.0
 		self.max_throttle = -0.6
-		self.max_angle = 0.2
+		self.max_angle = 0.25
 		self.cur_dir = "none"
 
 	def lidar_callback(self, msg):
