@@ -40,16 +40,19 @@ class DriveLap(Node):
 		wall_dist = 1.5
 		df = msg.ranges[0]
 		#original true right should be 398
-		dr = float('inf')
+		dr = 0
+		l = 0
 		for i in range(398-60, 398+60):
 			if msg.ranges[i] == float('inf'):
 				break
-			if msg.ranges[i] < dr:
-				dr = msg.ranges[i]
+
+			dr = dr + msg.ranges[i]
+			l++
+		dr = dr/120
 		#if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
 			#wall_dist = wall_dist+dr-self.dr_lp
 			
-		self.dr_lp = self.dr_lp*0.95+dr*0.05
+		self.dr_lp = self.dr_lp*0.8+dr*0.2
 		if self.dr_lp > 2:
 			self.dr_lp = 2
 		dr = self.dr_lp
@@ -69,7 +72,7 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 1.2
+		k_psi_p = 2.5
 		k_psi_d = 0.0
 		k_psi_i = 0.0
 
