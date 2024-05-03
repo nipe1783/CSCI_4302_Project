@@ -19,7 +19,7 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
-		self.max_throttle = -0.6
+		self.max_throttle = -0.7
 		self.max_angle = 0.25
 		self.cur_dir = "none"
 
