@@ -39,19 +39,12 @@ class DriveLap(Node):
 			print("Stop")
 			self.cur_dir = "stop"
 			self.stop()
-		elif forward_distance < 2.5 and right_distance > 2.5:
-			print("Right")
-			self.cur_dir = "right"
-			self.go_right()
-			print("sleeping")
-			time.sleep(0.05)
-		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif (forward_distance < 2.5 and right_45 < 2.8) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 1.5):
+		elif (forward_distance < 2.0 and right_distance < 2.0) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 1.2):
 			print("Left")
 			self.cur_dir = "left"
 			self.go_left()
 			print("sleeping")
-			time.sleep(0.05)
+			time.sleep(0.1)
 		elif (right_distance < 0.4 and forward_distance > 2.0):
 			print("Stabilize")
 			self.cur_dir = "stabilize"
@@ -60,15 +53,15 @@ class DriveLap(Node):
 			print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
-		elif (right_distance > 2.0) or (left_45 < 1.5):
+		elif (right_distance > 1.5) or (left_45 < 1.2):
 			print("Right")
 			self.cur_dir = "right"
 			self.go_right()
 			print("sleeping")
-			time.sleep(0.05)
+			time.sleep(0.1)
 		else:
-			print("Default Straight")
-			self.cur_dir = "straight"
+			print("Default Straight (turn slightly right)")
+			self.cur_dir = "stabilize"
 			self.stabilizeRight()
 
 	def go_straight(self):
