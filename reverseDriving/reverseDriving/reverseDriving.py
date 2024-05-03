@@ -20,8 +20,9 @@ class ReverseDrive(Node):
 		self.right_distance_ = 0.0
 		self.left_distance_ = 0.0
 		self.cur_dir = "none"
-		self.max_throttle = 0
+		self.max_throttle = 0.0
 		self.max_angle = 0.5
+		self.max_error = 0.0
 
 	def lidar_callback(self, msg):
 
@@ -36,7 +37,7 @@ class ReverseDrive(Node):
 
 		obstacle = False
 		dist = min(msg.ranges[240:295:5])
-		if dist < 1 and dist > .2:
+		if dist < 2 and dist > .2:
 			obstacle = True
 
 		self.get_logger().info(f'Forward: {dist:.2f} meters')
@@ -53,21 +54,24 @@ class ReverseDrive(Node):
 			print("Obstacle")
 			self.cur_dir = "avoiding"
 			self.go_left()
-		elif (right_distance_ > 2):
+		elif (right_distance_ > 6):
 			print("Right")
 			for x in range(10):
 				self.go_right()
 			self.cur_dir = "right"
+			self.max_error = 0.0
 		else:
 			print("Hugging Wall")
 			self.cur_dir = "hug_wall"
-			self.hug_wall(1-right_distance_)
+			self.hug_wall(1.5-right_distance_)
 
 	def hug_wall(self,error):
 		input = ServoCtrlMsg()
-		input.angle = error * self.max_angle
+		if abs(error) > self.max_error:
+			self.max_error = abs(error)
+		input.angle = error/self.max_error * self.max_angle
 		input.throttle = -self.max_throttle
-		print("hug wall error:",error," angle:",input.angle," throttle:",input.throttle)
+		print("hug wall error:",error/self.max_error," angle:",input.angle," throttle:",input.throttle)
 		self.cmd_vel_publisher.publish(input)
 
 	def reverse(self):
