@@ -18,15 +18,15 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
-		self.max_throttle = -0.55
+		self.max_throttle = 0.55
 		self.cur_dir = "none"
 
 	def lidar_callback(self, msg):
-		forward_distance = msg.ranges[265]
-		right_45 = msg.ranges[199]
-		right_distance = msg.ranges[132]
-		left_45 = msg.ranges[332]
-		left_distance = msg.ranges[398]
+		forward_distance = msg.ranges[0]
+		right_45 = msg.ranges[464]
+		right_distance = msg.ranges[398]
+		left_45 = msg.ranges[66]
+		left_distance = msg.ranges[132]
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance:.2f} meters')
 		self.get_logger().info(f'Right 45 distance: {right_45:.2f} meters')
@@ -38,7 +38,7 @@ class DriveLap(Node):
 			self.cur_dir = "stop"
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif (forward_distance < 2.0 and right_distance < 1.5) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.8):
+		elif (forward_distance < 1.6 and right_distance < 1.5) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.8):
 			print("Left")
 			self.cur_dir = "left"
 			for x in range(10):
@@ -51,7 +51,7 @@ class DriveLap(Node):
 			print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
-		elif (right_distance > 1.3) or (left_45 < 0.8):
+		elif (right_distance > 1.5) or (left_45 < 0.8):
 			print("Right")
 			self.cur_dir = "right"
 			for x in range(10):
