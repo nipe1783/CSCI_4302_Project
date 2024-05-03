@@ -32,43 +32,45 @@ class DriveLap(Node):
 		self.t_prev = time.time()
 		self.ds_prev = 0.0
 		self.psi_acc = 0.0
-		self.dr_lp = 0
+		self.dl_lp = 0
 
 
 
 	def lidar_callback(self, msg):
 		wall_dist = 0.75
+		
 		df = msg.ranges[0]
 		#original true right should be 398
+		dr = msg.ranges[398]
+		#original left should be 132
+		#dl = msg.ranges[132]
 		
-		dr = float('inf')
+		dl = float('inf')
 		for k  in range(398-10, 398+90, 10):
-			dr_temp = 0.01
+			dl_temp = 0.01
 			l = 0.000001
 			for i in range(k-5, k+5, 10):
 				if msg.ranges[i] == float('inf'):
 					break
 	
-				dr_temp = dr_temp + msg.ranges[i]
+				dl_temp = dl_temp + msg.ranges[i]
 				l += 1
-			dr_temp = dr_temp/l
-			if dr_temp < dr:
-				dr = dr_temp
+			dl_temp = dl_temp/l
+			if dl_temp < dr:
+				dl = dl_temp
 			
 		#if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
 			#wall_dist = wall_dist+dr-self.dr_lp
 			
-		self.dr_lp = self.dr_lp*0.6+dr*0.4
-		if self.dr_lp > 2:
-			self.dr_lp = 2
-		dr = self.dr_lp
-		#dr = msg.ranges[398]
-		#original left should be 132
-		dl = msg.ranges[132]
+		self.dl_lp = self.dl_lp*0.6+dr*0.4
+		if self.dl_lp > 2:
+			self.dl_lp = 2
+		dl = self.dl_lp
+		
 
 
 		#ds = dl-dr
-		ds = wall_dist-dr
+		ds = wall_dist-dl
 		self.get_logger().info(f'Forward distance: {df:.2f} meters')
 		self.get_logger().info(f'Right distance: {dr:.2f} meters')
 		self.get_logger().info(f'Left distance: {dl:.2f} meters')
@@ -88,7 +90,7 @@ class DriveLap(Node):
 			psi_p = 0.0
 			self.stop()
 		else:
-			th_p = 0.66 #df
+			th_p = -0.66 #df
 
 		'''if dl < self.ds_min or dr < self.ds_min:
 			th_p = 0.0
