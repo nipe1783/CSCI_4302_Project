@@ -38,7 +38,7 @@ class DriveLap(Node):
 			self.cur_dir = "stop"
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif (forward_distance < 1.6 and right_distance < 1.5) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.5):
+		elif (forward_distance < 1.8 and right_distance < 1.0) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.5):
 			print("Left")
 			self.cur_dir = "left"
 			for x in range(10):
@@ -69,19 +69,19 @@ class DriveLap(Node):
 
 	def go_right(self):
 		input = ServoCtrlMsg()
-		input.angle = -0.35
+		input.angle = -0.45
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.35
+		input.angle = 0.45
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def stabilize(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.025
+		input.angle = 0.05
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
