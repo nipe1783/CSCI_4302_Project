@@ -53,6 +53,10 @@ class DriveLap(Node):
 			print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
+		elif (right_distance > 0.8 and left_distance < 2.0):
+			print("stabilize right")
+			self.cur_dir = "straight"
+			self.stabilizeRight()
 		elif (right_distance > 1.5) or (left_45 < 1.2):
 			print("Right")
 			self.cur_dir = "right"
