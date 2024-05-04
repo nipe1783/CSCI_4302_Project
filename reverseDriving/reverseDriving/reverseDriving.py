@@ -53,7 +53,7 @@ class DriveLap(Node):
 			print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
-		elif (right_distance > 1.5) or (left_45 < 1.2):
+		elif (right_distance > 0.8) or (left_45 < 1.2):
 			print("Right")
 			self.cur_dir = "right"
 			self.go_right()
@@ -66,13 +66,13 @@ class DriveLap(Node):
 
 	def go_straight(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.002
+		input.angle = 0.005
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
 	def stabilizeRight(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.02
+		input.angle = 0.05
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
