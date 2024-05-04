@@ -51,20 +51,18 @@ class DriveLap(Node):
 	
 				dr_temp = dr_temp + msg.ranges[i]
 				l += 1
-			dr_temp = dr_temp/l
-			if dr_temp < dr:
-				dr = dr_temp
+			dl_temp = dl_temp/l
+			if dl_temp < dl:
+				dl = dl_temp
 			
 		#if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
 			#wall_dist = wall_dist+dr-self.dr_lp
 			
-		self.dr_lp = self.dr_lp*0.6+dr*0.4
-		if self.dr_lp > 2:
-			self.dr_lp = 2
-		dr = self.dr_lp
-		#dr = msg.ranges[398]
-		#original left should be 132
-		dl = msg.ranges[132]
+		self.dl_lp = self.dl_lp*0.6+dl*0.4
+		if self.dl_lp > 2:
+			self.dl_lp = 2
+		dl = self.dl_lp
+		
 
 
 		#ds = dl-dr
@@ -78,8 +76,8 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 0.9
-		k_psi_d = -0.2
+		k_psi_p = -0.9
+		k_psi_d = 0.2
 		k_psi_i = 0.0
 
 		#P
