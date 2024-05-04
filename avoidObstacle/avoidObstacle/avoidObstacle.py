@@ -62,7 +62,7 @@ class DriveLap(Node):
 		#if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
 			#wall_dist = wall_dist+dr-self.dr_lp
 			
-		self.dl_lp = self.dl_lp*0.2+dl*0.8
+		self.dl_lp = self.dl_lp*0.0+dl*1.0
 		if self.dl_lp > 2:
 			self.dl_lp = 2
 		dl = self.dl_lp
@@ -81,7 +81,7 @@ class DriveLap(Node):
 		k_th_i = 0.0
 
 		k_psi_p = -0.5
-		k_psi_d = 0.4
+		k_psi_d = 0.1
 		k_psi_i = 0.0
 
 		#P
