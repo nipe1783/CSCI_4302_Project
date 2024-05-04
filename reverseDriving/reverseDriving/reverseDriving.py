@@ -20,7 +20,7 @@ class ReverseDrive(Node):
 		self.right_distance_ = 0.0
 		self.left_distance_ = 0.0
 		self.cur_dir = "none"
-		self.max_throttle = 0.6
+		self.max_throttle = 0.7
 		self.max_angle = 0.5
 		self.max_error = 0.0
 
