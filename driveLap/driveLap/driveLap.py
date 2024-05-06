@@ -20,7 +20,6 @@ class DriveLap(Node):
 		self.right_distance = 0.0
 		self.left_distance = 0.0
 		self.max_throttle = 0.55
-		self.cur_dir = "none"
 
 
 
@@ -54,33 +53,16 @@ class DriveLap(Node):
 
 		if forward_distance < 0.2:
 			print("Stop")
-			self.cur_dir = "stop"
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
 		elif (forward_distance < 2.0 and right_distance < 2.0) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.9):
 			print("Left")
-			self.cur_dir = "left"
 			self.go_left()
 			print("sleeping")
 			time.sleep(0.1)
-		elif (right_distance < 0.4 and forward_distance > 2.0):
-			print("Stabilize")
-			self.cur_dir = "stabilize"
-			self.stabilize()
-		elif (right_distance > 0.35 and right_distance < 1.0):
-			print("Straight")
-			self.cur_dir = "straight"
-			self.go_straight()
-		elif (right_distance > 1.5) or (left_45 < 0.9):
-			print("Right")
-			self.cur_dir = "right"
-			self.go_right()
-			print("sleeping")
-			time.sleep(0.1)
 		else:
-			print("Default Straight (turn slightly right)")
-			self.cur_dir = "stabilize"
-			self.stabilizeRight()
+			print("Wall follow PID")
+			self.pid_wall_follow(msg)
 
 	def go_straight(self):
 		input = ServoCtrlMsg()
