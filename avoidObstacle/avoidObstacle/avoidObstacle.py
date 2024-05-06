@@ -59,8 +59,8 @@ class DriveLap(Node):
 			if dl_temp < dl:
 				dl = dl_temp
 			
-		#if dr-self.dr_lp > 0.5 and dr-self.dr_lp < 2:
-			#wall_dist = wall_dist+dr-self.dr_lp
+		if dr > wall_dist+0.2 and dr > wall_dist+1:
+			wall_dist = dr*0.9
 			
 		self.dl_lp = self.dl_lp*0.6+dl*0.4
 		if self.dl_lp > 2:
