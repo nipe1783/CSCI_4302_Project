@@ -66,7 +66,6 @@ class DriveLap(Node):
 			#right_distance = msg.ranges[398]
 			print("Left")
 			self.go_left()
-			time.sleep(0.1)
 			#if right_distance > 0.5:
 			#	self.avoid_toggle = 0
 			#	self.pid_wall_follow(msg)
@@ -167,8 +166,8 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 1.35
-		k_psi_d = -0.15
+		k_psi_p = 1.0
+		k_psi_d = -0.05
 		k_psi_i = 0.0
 
 		#P
@@ -177,7 +176,7 @@ class DriveLap(Node):
 			psi_p = 0.0
 			self.stop()
 		else:
-			th_p = 0.68 #df
+			th_p = 0.65 #df
 
 		'''if dl < self.ds_min or dr < self.ds_min:
 			th_p = 0.0
