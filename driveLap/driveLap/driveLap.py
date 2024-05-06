@@ -19,7 +19,7 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
-		self.max_throttle = 0.65
+		self.max_throttle = 0.55
 
 		self.avoid_toggle = 0
 
