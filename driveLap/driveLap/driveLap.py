@@ -12,12 +12,10 @@ class DriveLap(Node):
 			'/rplidar_ros/scan',
 			self.lidar_callback,
 			10)
-		print("Created subscriber")
 		self.cmd_vel_publisher = self.create_publisher(
 			ServoCtrlMsg,
 			'/ctrl_pkg/servo_msg',
 			10)
-		print("Created publisher")
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
@@ -25,13 +23,11 @@ class DriveLap(Node):
 		self.cur_dir = "none"
 
 	def lidar_callback(self, msg):
-		#print("Setting lidar readings")
 		forward_distance = msg.ranges[0]
-		right_45 = msg.ranges[497]
+		right_45 = msg.ranges[464]
 		right_distance = msg.ranges[398]
-		left_45 = msg.ranges[33]
+		left_45 = msg.ranges[66]
 		left_distance = msg.ranges[132]
-		#print("Got Lidar readings")
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance:.2f} meters')
 		self.get_logger().info(f'Right 45 distance: {right_45:.2f} meters')
@@ -49,7 +45,7 @@ class DriveLap(Node):
 			self.go_left()
 			print("sleeping")
 			time.sleep(0.1)
-		elif (right_distance < 0.2 and forward_distance > 2.0):
+		elif (right_distance < 0.4 and forward_distance > 2.0):
 			print("Stabilize")
 			self.cur_dir = "stabilize"
 			self.stabilize()
@@ -57,10 +53,6 @@ class DriveLap(Node):
 			print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
-		#elif (right_distance > 0.8 and left_distance < 2.0):
-			#print("stabilize right")
-			#self.cur_dir = "straight"
-			#self.stabilizeRight()
 		elif (right_distance > 1.5) or (left_45 < 1.2):
 			print("Right")
 			self.cur_dir = "right"
