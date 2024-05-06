@@ -58,8 +58,8 @@ class DriveLap(Node):
 		elif (forward_distance < 2.0 and right_distance < 2.0) or (right_45 < 0.9):
 			print("Left")
 			self.go_left()
-			print("sleeping")
-			time.sleep(0.1)
+			#print("sleeping")
+			#time.sleep(0.1)
 		else:
 			print("Wall follow PID")
 			self.pid_wall_follow(msg)
