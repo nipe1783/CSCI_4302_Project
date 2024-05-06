@@ -111,7 +111,7 @@ class DriveLap(Node):
 		#original true right should be 398
 		dr = msg.ranges[398]
 		#original left should be 132
-		#dl = msg.ranges[132]
+		dl = msg.ranges[132]
 		
 		dr = float('inf')
 		for k  in range(398-0, 398+120, 10):
