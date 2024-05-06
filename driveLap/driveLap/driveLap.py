@@ -47,9 +47,9 @@ class DriveLap(Node):
 		right_distance = msg.ranges[398]
 		left_45 = msg.ranges[66]
 		left_distance = msg.ranges[132]
-		for x in range(msg.ranges):
-			if msg.ranges[x] == float('inf'):
-				msg.ranges[x] = 80.0
+		#for x in range(msg.ranges):
+			#if msg.ranges[x] == float('inf'):
+				#msg.ranges[x] = 80.0
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance:.2f} meters')
 		self.get_logger().info(f'Right 45 distance: {right_45:.2f} meters')
