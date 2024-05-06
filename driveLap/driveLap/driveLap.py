@@ -68,7 +68,7 @@ class DriveLap(Node):
 			#	self.pid_wall_follow(msg)
 			#print("sleeping")
 			#time.sleep(0.1)
-			self.pid_wall_follow(msg, 1)
+			self.pid_wall_follow(msg, 0)
 		else:
 			print("Wall follow PID")
 			self.pid_wall_follow(msg, 1)
