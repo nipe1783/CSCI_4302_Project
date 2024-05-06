@@ -19,7 +19,7 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
-		self.max_throttle = 0.55
+		self.max_throttle = 0.65
 
 
 
@@ -105,7 +105,7 @@ class DriveLap(Node):
 
 	# start of PID implementation
 	def pid_wall_follow(self, msg):
-		wall_dist = 1
+		wall_dist = 0.5
 		
 		df = msg.ranges[0]
 		#original true right should be 398
