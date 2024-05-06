@@ -113,32 +113,32 @@ class DriveLap(Node):
 		#original left should be 132
 		#dl = msg.ranges[132]
 		
-		dl = float('inf')
-		for k  in range(132-0, 132+120, 10):
-			dl_temp = 0.01
+		dr = float('inf')
+		for k  in range(398-0, 398+120, 10):
+			dr_temp = 0.01
 			l = 0.000001
 			for i in range(k-5, k+5, 10):
 				if msg.ranges[i] == float('inf'):
 					break
 	
-				dl_temp = dl_temp + msg.ranges[i]
+				dr_temp = dr_temp + msg.ranges[i]
 				l += 1
-			dl_temp = dl_temp/l
-			if dl_temp < dl:
-				dl = dl_temp
+			dr_temp = dr_temp/l
+			if dr_temp < dr:
+				dr = dr_temp
 			
 		#if dr > wall_dist+0.2 and dr > wall_dist+1:
 		#	wall_dist = dr*0.95
 			
-		self.dl_lp = self.dl_lp*0.6+dl*0.4
-		if self.dl_lp > 2:
-			self.dl_lp = 2
-		dl = self.dl_lp
+		self.dr_lp = self.dr_lp*0.6+dr*0.4
+		if self.dr_lp > 2:
+			self.dr_lp = 2
+		dr = self.dr_lp
 		
 
 
 		#ds = dl-dr
-		ds = wall_dist-dl
+		ds = wall_dist-dr
 		self.get_logger().info(f'Forward distance: {df:.2f} meters')
 		self.get_logger().info(f'Right distance: {dr:.2f} meters')
 		self.get_logger().info(f'Left distance: {dl:.2f} meters')
