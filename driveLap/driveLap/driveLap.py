@@ -27,9 +27,9 @@ class DriveLap(Node):
 	def lidar_callback(self, msg):
 		print("Setting lidar readings")
 		forward_distance = msg.ranges[0]
-		right_45 = msg.ranges[464]
+		right_45 = msg.ranges[497]
 		right_distance = msg.ranges[398]
-		left_45 = msg.ranges[66]
+		left_45 = msg.ranges[33]
 		left_distance = msg.ranges[132]
 		print("Got Lidar readings")
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
@@ -43,7 +43,7 @@ class DriveLap(Node):
 			self.cur_dir = "stop"
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif (forward_distance < 2.0 and right_distance < 2.0) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.5):
+		elif (forward_distance < 2.0 and right_distance < 2.0) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 1.0):
 			print("Left")
 			self.cur_dir = "left"
 			self.go_left()
@@ -61,7 +61,7 @@ class DriveLap(Node):
 			print("stabilize right")
 			self.cur_dir = "straight"
 			self.stabilizeRight()
-		elif (right_distance > 2.0) or (left_45 < 0.5):
+		elif (right_distance > 2.0) or (left_45 < 1.0):
 			print("Right")
 			self.cur_dir = "right"
 			self.go_right()
@@ -86,13 +86,13 @@ class DriveLap(Node):
 
 	def go_right(self):
 		input = ServoCtrlMsg()
-		input.angle = -0.5
+		input.angle = -0.6
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.5
+		input.angle = 0.6
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
