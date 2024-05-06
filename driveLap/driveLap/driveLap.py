@@ -57,12 +57,12 @@ class DriveLap(Node):
 			print("Stop")
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif forward_distance < 1.8:# and right_distance < 0.5:
+		elif forward_distance < 2.0:# and right_distance < 0.5:
 			#self.avoid_toggle = 1
-			right_distance = msg.ranges[398]
+			#right_distance = msg.ranges[398]
 			print("Left")
 			self.go_left()
-			#time.sleep(0.1)
+			time.sleep(0.1)
 			#if right_distance > 0.5:
 			#	self.avoid_toggle = 0
 			#	self.pid_wall_follow(msg)
