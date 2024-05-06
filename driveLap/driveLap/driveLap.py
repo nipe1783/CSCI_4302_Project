@@ -19,7 +19,7 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
-		self.max_throttle = 0.55
+		self.max_throttle = 0.50
 
 		self.avoid_toggle = 0
 
@@ -96,7 +96,7 @@ class DriveLap(Node):
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
-		input.angle = 0.75
+		input.angle = 0.8
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
