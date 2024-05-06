@@ -25,13 +25,13 @@ class DriveLap(Node):
 		self.cur_dir = "none"
 
 	def lidar_callback(self, msg):
-		print("Setting lidar readings")
+		#print("Setting lidar readings")
 		forward_distance = msg.ranges[0]
 		right_45 = msg.ranges[497]
 		right_distance = msg.ranges[398]
 		left_45 = msg.ranges[33]
 		left_distance = msg.ranges[132]
-		print("Got Lidar readings")
+		#print("Got Lidar readings")
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance:.2f} meters')
 		self.get_logger().info(f'Right 45 distance: {right_45:.2f} meters')
@@ -43,7 +43,7 @@ class DriveLap(Node):
 			self.cur_dir = "stop"
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif (forward_distance < 2.0 and right_distance < 2.0) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 1.0):
+		elif (forward_distance < 2.0 and right_distance < 2.0) or (self.cur_dir == "right" and left_distance > 2.0 and forward_distance < 1.0) or (right_45 < 0.8):
 			print("Left")
 			self.cur_dir = "left"
 			self.go_left()
@@ -57,11 +57,11 @@ class DriveLap(Node):
 			print("Straight")
 			self.cur_dir = "straight"
 			self.go_straight()
-		elif (right_distance > 0.8 and left_distance < 2.0):
-			print("stabilize right")
-			self.cur_dir = "straight"
-			self.stabilizeRight()
-		elif (right_distance > 2.0) or (left_45 < 1.0):
+		#elif (right_distance > 0.8 and left_distance < 2.0):
+			#print("stabilize right")
+			#self.cur_dir = "straight"
+			#self.stabilizeRight()
+		elif (right_distance > 2.0) or (left_45 < 0.8):
 			print("Right")
 			self.cur_dir = "right"
 			self.go_right()
