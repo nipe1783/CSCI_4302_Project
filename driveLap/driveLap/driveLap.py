@@ -19,7 +19,7 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
-		self.max_throttle = 0.50
+		self.max_throttle = 0.60
 
 		self.avoid_toggle = 0
 
@@ -77,7 +77,7 @@ class DriveLap(Node):
 		else:
 			print("Wall follow PID")
 			if self.wall_dist > 0.35:
-				self.wall_dist = self.wall_dist-0.005
+				self.wall_dist = self.wall_dist-0.015
 			self.pid_wall_follow(msg, 1, self.wall_dist)
 
 	def go_straight(self):
@@ -177,7 +177,7 @@ class DriveLap(Node):
 			psi_p = 0.0
 			self.stop()
 		else:
-			th_p = 0.66 #df
+			th_p = 0.7 #df
 
 		'''if dl < self.ds_min or dr < self.ds_min:
 			th_p = 0.0
