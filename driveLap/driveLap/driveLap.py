@@ -39,11 +39,12 @@ class DriveLap(Node):
 		self.ds_prev = 0.0
 		self.psi_acc = 0.0
 		self.dr_lp = 0
+		self.wall_dist = 0.35
 		
 
 	def lidar_callback(self, msg):
 		forward_distance = msg.ranges[0]
-		right_45 = msg.ranges[464]
+		#right_45 = msg.ranges[464]
 		right_distance = msg.ranges[398]
 		left_45 = msg.ranges[66]
 		left_distance = msg.ranges[132]
@@ -52,7 +53,7 @@ class DriveLap(Node):
 				#msg.ranges[x] = 80.0
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance:.2f} meters')
-		self.get_logger().info(f'Right 45 distance: {right_45:.2f} meters')
+		#self.get_logger().info(f'Right 45 distance: {right_45:.2f} meters')
 		self.get_logger().info(f'Left distance: {left_distance:.2f} meters')
 		self.get_logger().info(f'Left 45 distance: {left_45:.2f} meters')
 
@@ -65,16 +66,19 @@ class DriveLap(Node):
 			#right_distance = msg.ranges[398]
 			print("Left")
 			self.go_left()
-			time.sleep(0.25)
+			time.sleep(0.2)
 			#if right_distance > 0.5:
 			#	self.avoid_toggle = 0
 			#	self.pid_wall_follow(msg)
 			#print("sleeping")
 			#time.sleep(0.1)
-			self.pid_wall_follow(msg, 0)
+			self.pid_wall_follow(msg, 0, 1.2)
+			self.wall_dist = 1.5
 		else:
 			print("Wall follow PID")
-			self.pid_wall_follow(msg, 1)
+			if self.wall_dist > 0.35:
+				self.wall_dist = self.wall_dist-0.005
+			self.pid_wall_follow(msg, 1, self.wall_dist)
 
 	def go_straight(self):
 		input = ServoCtrlMsg()
@@ -116,8 +120,8 @@ class DriveLap(Node):
 
 
 	# start of PID implementation
-	def pid_wall_follow(self, msg, act):
-		wall_dist = 0.35
+	def pid_wall_follow(self, msg, act, wall_dist):
+		#wall_dist = 0.35
 		
 		df = msg.ranges[0]
 		#original true right should be 398
