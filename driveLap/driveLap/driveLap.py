@@ -134,7 +134,10 @@ class DriveLap(Node):
 			dr_temp = 0.01
 			l = 0.000001
 			for i in range(k-5, k+5, 10):
-				if msg.ranges[i] == float('inf'):
+				try:
+					if msg.ranges[i] == float('inf'):
+						break
+				except:
 					break
 	
 				dr_temp = dr_temp + msg.ranges[i]
