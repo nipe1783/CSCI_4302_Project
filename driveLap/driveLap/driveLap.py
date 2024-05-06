@@ -25,11 +25,13 @@ class DriveLap(Node):
 		self.cur_dir = "none"
 
 	def lidar_callback(self, msg):
+		print("Setting lidar readings")
 		forward_distance = msg.ranges[0]
 		right_45 = msg.ranges[464]
 		right_distance = msg.ranges[398]
 		left_45 = msg.ranges[66]
 		left_distance = msg.ranges[132]
+		print("Got Lidar readings")
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
 		self.get_logger().info(f'Right distance: {right_distance:.2f} meters')
 		self.get_logger().info(f'Right 45 distance: {right_45:.2f} meters')
