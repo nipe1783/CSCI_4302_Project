@@ -12,10 +12,12 @@ class DriveLap(Node):
 			'/rplidar_ros/scan',
 			self.lidar_callback,
 			10)
+		print("Created subscriber")
 		self.cmd_vel_publisher = self.create_publisher(
 			ServoCtrlMsg,
 			'/ctrl_pkg/servo_msg',
 			10)
+		print("Created publisher")
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
