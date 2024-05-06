@@ -36,7 +36,7 @@ class DriveLap(Node):
 		self.t_prev = time.time()
 		self.ds_prev = 0.0
 		self.psi_acc = 0.0
-		self.dl_lp = 0
+		self.dr_lp = 0
 		
 
 	def lidar_callback(self, msg):
