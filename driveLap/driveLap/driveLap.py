@@ -61,7 +61,7 @@ class DriveLap(Node):
 			print("Stop")
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif forward_distance < 1.1 and right_distance < 1.5:# and right_distance < 0.5:
+		elif forward_distance < 1.1:# and right_distance < 0.5:
 			#self.avoid_toggle = 1
 			#right_distance = msg.ranges[398]
 			print("Left")
@@ -167,8 +167,8 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 1.2
-		k_psi_d = -0.12
+		k_psi_p = 1.0
+		k_psi_d = -0.08
 		k_psi_i = 0.0
 
 		#P
