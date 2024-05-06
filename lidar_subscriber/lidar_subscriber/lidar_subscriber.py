@@ -18,6 +18,7 @@ class LidarSubscriber(Node):
 
 	#This is where we should process the Lidar readings
 	def lidar_callback(self, msg):
+		print(len(msg.ranges))
 		forward_distance = self.get_forward_distance(msg)
 		self.get_logger().info(f'Forward distance: {forward_distance:.2f} meters')
 		if forward_distance > 1.0:
