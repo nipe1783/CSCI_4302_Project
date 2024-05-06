@@ -22,6 +22,24 @@ class DriveLap(Node):
 		self.max_throttle = 0.55
 		self.cur_dir = "none"
 
+
+
+
+		# for PID implementation
+		self.psi = 0.0
+		self.th = 0.0
+		self.df_cut = 0.2
+		self.th_max = 0.8
+		self.ds_min = 0.2
+		self.psi_max = 1.0
+		self.psi_min = -1.0
+		self.t_start = time.time()
+		self.t_prev = time.time()
+		self.ds_prev = 0.0
+		self.psi_acc = 0.0
+		self.dl_lp = 0
+		
+
 	def lidar_callback(self, msg):
 		forward_distance = msg.ranges[0]
 		right_45 = msg.ranges[464]
@@ -99,6 +117,125 @@ class DriveLap(Node):
 		input.angle = 0.0
 		input.throttle = 0.0
 		self.cmd_vel_publisher.publish(input)
+
+
+
+
+	# start of PID implementation
+	def pid_wall_follow(self, msg):
+		wall_dist = 1
+		
+		df = msg.ranges[0]
+		#original true right should be 398
+		dr = msg.ranges[398]
+		#original left should be 132
+		#dl = msg.ranges[132]
+		
+		dl = float('inf')
+		for k  in range(132-0, 132+120, 10):
+			dl_temp = 0.01
+			l = 0.000001
+			for i in range(k-5, k+5, 10):
+				if msg.ranges[i] == float('inf'):
+					break
+	
+				dl_temp = dl_temp + msg.ranges[i]
+				l += 1
+			dl_temp = dl_temp/l
+			if dl_temp < dl:
+				dl = dl_temp
+			
+		#if dr > wall_dist+0.2 and dr > wall_dist+1:
+		#	wall_dist = dr*0.95
+			
+		self.dl_lp = self.dl_lp*0.6+dl*0.4
+		if self.dl_lp > 2:
+			self.dl_lp = 2
+		dl = self.dl_lp
+		
+
+
+		#ds = dl-dr
+		ds = wall_dist-dl
+		self.get_logger().info(f'Forward distance: {df:.2f} meters')
+		self.get_logger().info(f'Right distance: {dr:.2f} meters')
+		self.get_logger().info(f'Left distance: {dl:.2f} meters')
+
+		#PID gains
+		k_th_p = 1.0
+		k_th_d = 0.0
+		k_th_i = 0.0
+
+		k_psi_p = -0.7
+		k_psi_d = 0.0
+		k_psi_i = 0.0
+
+		#P
+		if df < self.df_cut:
+			th_p = 0.0
+			psi_p = 0.0
+			self.stop()
+		else:
+			th_p = -0.66 #df
+
+		'''if dl < self.ds_min or dr < self.ds_min:
+			th_p = 0.0
+			psi_p = 0.0
+		else:
+			psi_p = ds
+		'''
+		psi_p = ds
+
+		#D
+		t = time.time()
+		dt = t-self.t_prev
+		th_d = 0.0
+		psi_d = (ds-self.ds_prev)/dt
+
+		#I
+		th_i = 0.0
+		psi_i = self.psi_acc+ds*dt
+
+		
+
+		# update prev vals
+		self.ds_prev = ds
+		self.t_prev = t
+		self.psi_acc = psi_i
+		
+		#apply gain and sum
+		self.th = th_p*k_th_p + th_d*k_th_p + th_i*k_th_i
+		self.psi = psi_p*k_psi_p + psi_d*k_psi_p + psi_i*k_psi_i
+
+		message0 = f"Raw Actions: Throttle= {self.th} Steering Angle= {self.psi}"
+		
+		#cuttoff
+		if self.th > self.th_max:
+			self.th = self.th_max
+
+		if self.psi > self.psi_max:
+			self.psi = self.psi_max
+		elif self.psi < self.psi_min:
+			self.psi = self.psi_min
+
+		self.act()
+		
+
+	def act(self):
+		input = ServoCtrlMsg()
+		input.angle = float(self.psi)
+		input.throttle = float(self.th)
+		self.cmd_vel_publisher.publish(input)
+
+
+
+
+
+
+
+
+
+
 
 def main(args = None):
     rclpy.init(args=args)
