@@ -57,7 +57,7 @@ class DriveLap(Node):
 			print("Stop")
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif forward_distance < 1.0:# and right_distance < 0.5:
+		elif forward_distance < 1.25:# and right_distance < 0.5:
 			#self.avoid_toggle = 1
 			#right_distance = msg.ranges[398]
 			print("Left")
@@ -93,7 +93,7 @@ class DriveLap(Node):
 	
 	def go_left(self):
 		input = ServoCtrlMsg()
-		input.angle = 1.0
+		input.angle = 0.75
 		input.throttle = self.max_throttle
 		self.cmd_vel_publisher.publish(input)
 
@@ -114,7 +114,7 @@ class DriveLap(Node):
 
 	# start of PID implementation
 	def pid_wall_follow(self, msg, act):
-		wall_dist = 0.25
+		wall_dist = 0.35
 		
 		df = msg.ranges[0]
 		#original true right should be 398
