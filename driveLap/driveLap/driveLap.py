@@ -39,7 +39,7 @@ class DriveLap(Node):
 		self.ds_prev = 0.0
 		self.psi_acc = 0.0
 		self.dr_lp = 0
-		self.wall_dist = 0.35
+		self.wall_dist = 0.43
 		
 
 	def lidar_callback(self, msg):
@@ -72,10 +72,10 @@ class DriveLap(Node):
 			#print("sleeping")
 			#time.sleep(0.1)
 			self.pid_wall_follow(msg, 0, 1.2)
-			self.wall_dist = 1.1
+			self.wall_dist = 1.4
 		else:
 			print("Wall follow PID")
-			if self.wall_dist > 0.35:
+			if self.wall_dist > 0.43:
 				self.wall_dist = self.wall_dist-0.015
 			self.pid_wall_follow(msg, 1, self.wall_dist)
 
