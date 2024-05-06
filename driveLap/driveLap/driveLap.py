@@ -68,9 +68,10 @@ class DriveLap(Node):
 			#	self.pid_wall_follow(msg)
 			#print("sleeping")
 			#time.sleep(0.1)
+			self.pid_wall_follow(msg, 1)
 		else:
 			print("Wall follow PID")
-			self.pid_wall_follow(msg)
+			self.pid_wall_follow(msg, 1)
 
 	def go_straight(self):
 		input = ServoCtrlMsg()
@@ -112,7 +113,7 @@ class DriveLap(Node):
 
 
 	# start of PID implementation
-	def pid_wall_follow(self, msg):
+	def pid_wall_follow(self, msg, act):
 		wall_dist = 0.25
 		
 		df = msg.ranges[0]
@@ -207,8 +208,8 @@ class DriveLap(Node):
 			self.psi = self.psi_max
 		elif self.psi < self.psi_min:
 			self.psi = self.psi_min
-
-		self.act()
+		if act:
+			self.act()
 		
 
 	def act(self):
