@@ -166,8 +166,8 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 0.82
-		k_psi_d = -0.00
+		k_psi_p = 0.7
+		k_psi_d = -0.01
 		k_psi_i = 0.0
 
 		#P
