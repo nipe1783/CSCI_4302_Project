@@ -72,7 +72,7 @@ class DriveLap(Node):
 			#print("sleeping")
 			#time.sleep(0.1)
 			self.pid_wall_follow(msg, 0, 1.2)
-			self.wall_dist = 1.4
+			self.wall_dist = 1.0
 		else:
 			print("Wall follow PID")
 			if self.wall_dist > 0.6:
@@ -166,7 +166,7 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 0.7
+		k_psi_p = 0.85
 		k_psi_d = -0.01
 		k_psi_i = 0.0
 
