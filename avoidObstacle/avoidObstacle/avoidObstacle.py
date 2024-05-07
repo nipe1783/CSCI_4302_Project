@@ -90,7 +90,7 @@ class DriveLap(Node):
 			psi_p = 0.0
 			self.stop()
 		else:
-			th_p = -0.66 #df
+			th_p = -0.55 #df
 
 		'''if dl < self.ds_min or dr < self.ds_min:
 			th_p = 0.0
