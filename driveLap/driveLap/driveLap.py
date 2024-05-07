@@ -45,6 +45,7 @@ class DriveLap(Node):
 	def lidar_callback(self, msg):
 		forward_distance = msg.ranges[0]
 		right_45 = msg.ranges[464]
+		right_15 = msg.ranges[420]
 		right_distance = msg.ranges[398]
 		left_45 = msg.ranges[66]
 		left_distance = msg.ranges[132]
@@ -61,7 +62,7 @@ class DriveLap(Node):
 			print("Stop")
 			self.stop()
 		# or (self.cur_dir == "right" and left_distance_ > 2.0 and forward_distance_ < 2.0)
-		elif forward_distance < 1.5 and right_distance < 1.5:# and right_distance < 0.5:
+		elif forward_distance < 1.5 and right_15 < 1.5:# and right_distance < 0.5:
 			#self.avoid_toggle = 1
 			#right_distance = msg.ranges[398]
 			print("Left")
@@ -72,7 +73,7 @@ class DriveLap(Node):
 			#print("sleeping")
 			#time.sleep(0.1)
 			self.pid_wall_follow(msg, 0, 1.2)
-			self.wall_dist = 1.0
+			self.wall_dist = 2.0
 		else:
 			print("Wall follow PID")
 			if self.wall_dist > 0.6:
