@@ -73,11 +73,11 @@ class DriveLap(Node):
 			#print("sleeping")
 			#time.sleep(0.1)
 			self.pid_wall_follow(msg, 0, 1.2)
-			self.wall_dist = 2.0
+			self.wall_dist = 1.4
 		else:
 			print("Wall follow PID")
 			if self.wall_dist > 0.6:
-				self.wall_dist = self.wall_dist-0.015
+				self.wall_dist = self.wall_dist-0.01
 			self.pid_wall_follow(msg, 1, self.wall_dist)
 
 	def go_straight(self):
