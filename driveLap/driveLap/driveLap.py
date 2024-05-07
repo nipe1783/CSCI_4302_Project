@@ -19,7 +19,7 @@ class DriveLap(Node):
 		self.forward_distance = 0.0
 		self.right_distance = 0.0
 		self.left_distance = 0.0
-		self.max_throttle = 0.68
+		self.max_throttle = 0.55
 
 		self.avoid_toggle = 0
 
@@ -167,7 +167,7 @@ class DriveLap(Node):
 		k_th_d = 0.0
 		k_th_i = 0.0
 
-		k_psi_p = 0.8
+		k_psi_p = 0.825
 		k_psi_d = -0.01
 		k_psi_i = 0.0
 
@@ -177,7 +177,7 @@ class DriveLap(Node):
 			psi_p = 0.0
 			self.stop()
 		else:
-			th_p = 0.69 #df
+			th_p = 0.60 #df
 
 		'''if dl < self.ds_min or dr < self.ds_min:
 			th_p = 0.0
